@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"os/exec"
@@ -51,9 +50,8 @@ func getMonitorInfo() (monitors []MonitorInfo) {
 		log.Fatal(err)
 	}
 
-	re := regexp.MustCompile(".*\\sconnected.*\\s(\\d+)x(\\d+)\\+(\\d+)\\+(\\d+)")
+	re := regexp.MustCompile(`.*\sconnected.*\s(\d+)x(\d+)\+(\d+)\+(\d+)`)
 	matches := re.FindAllStringSubmatch(string(out), -1)
-	fmt.Printf("%v", matches)
 
 	for _, match := range matches {
 		x, _ := strconv.Atoi(match[1])
@@ -119,7 +117,7 @@ func main() {
 		log.Fatal(argError)
 	}
 
-	if args[0] != "left" && args[0] != "right" {
+	if args[0] != left && args[0] != right {
 		log.Fatal(argError)
 	}
 	currentPosition := getCurrentPosition()
